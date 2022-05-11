@@ -209,7 +209,7 @@ namespace DatabaseFirstLINQ
 
         private void ProblemFourteen()
         {
-            // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+            // Add the product you created to the user we created in the ShoppingCart junction table using LINQ.
 
         }
 
