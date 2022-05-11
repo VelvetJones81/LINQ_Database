@@ -132,7 +132,7 @@ namespace DatabaseFirstLINQ
             var products = _context.ShoppingCarts.Include(p => p.Product).Include(p => p.User).Where(p => p.User.Email == "afton@gmail.com");
             foreach (var item in products)
             {
-                Console.WriteLine($"{item.Product.Name} {item.Product.Price) {item.Quantity}");
+                Console.WriteLine($"{item.Product.Name} {item.Product.Price} {item.Quantity}");
             }
 
         }
@@ -153,6 +153,12 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
+            var employees = _context.UserRoles.Include(u => u.User).Include(r => r.Role).Where(e => e.RoleId == 2).Select(u => u.UserId);
+            var products = _context.ShoppingCarts.Include(u => u.User).Include(p => p.Product).Where(u => employees.Contains(u.UserId));
+            foreach (var item in products)
+            {
+                Console.WriteLine($"{item.User.Email} {item.Product.Name} {item.Product.Price} {item.Quantity}");
+            }
 
         }
 
@@ -175,6 +181,15 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
+            Product newProduct = new Product()
+            {
+                Name = "Shake Weight for Women",
+                Description = "Gets rid of those flabby arms so you look good in your sleeveless dress",
+                Price = 20
+
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
 
         }
 
